@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT 中文对话</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="model">选择模型:</label>
+        <select id="model">
+            <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+            <option value="gpt-4-0613">gpt-4-0613</option>
+        </select>
+        <label for="prompt">输入问题:</label>
+        <input type="text" id="prompt" placeholder="请输入问题...">
+        <button onclick="generateResponse()">生成回复</button>
+        <div id="result" class="response"></div>
+    </div>
+
+    <script>
+        function generateResponse() {
+            var model = document.getElementById("model").value;
+            var prompt = document.getElementById("prompt").value;
+
+            var url = "https://openai.api2d.net/v1/chat/completions";
+            var headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer fk223086-yJoAv5P0YNlsu2jsCJqguGTK4Rhxn7nD'
+            };
+            var data = {
+                "model": model,
+                "messages": [{"role": "user", "content": prompt}]
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                var content = data.choices[0].message.content;
+                document.getElementById("result").innerHTML = content;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
