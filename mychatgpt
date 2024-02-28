@@ -9,23 +9,30 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
         }
         .container {
             max-width: 400px;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
         }
         input[type="text"] {
             width: calc(100% - 20px);
             padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
             border-radius: 5px;
+        }
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #fff;
         }
         button {
             width: 100%;
@@ -49,13 +56,13 @@
 </head>
 <body>
     <div class="container">
-        <label for="model">选择模型:</label>
+        <h2 style="text-align: center;">ChatGPT 中文对话</h2>
+        <input type="text" id="apiKey" placeholder="请输入您的API Key..." required>
         <select id="model">
             <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
             <option value="gpt-4-0613">gpt-4-0613</option>
         </select>
-        <label for="prompt">输入问题:</label>
-        <input type="text" id="prompt" placeholder="请输入问题...">
+        <input type="text" id="prompt" placeholder="请输入问题..." required>
         <button onclick="generateResponse()">生成回复</button>
         <div id="result" class="response"></div>
     </div>
@@ -64,11 +71,12 @@
         function generateResponse() {
             var model = document.getElementById("model").value;
             var prompt = document.getElementById("prompt").value;
+            var apiKey = document.getElementById("apiKey").value;
 
             var url = "https://openai.api2d.net/v1/chat/completions";
             var headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer fk223086-yJoAv5P0YNlsu2jsCJqguGTK4Rhxn7nD'
+                'Authorization': 'Bearer ' + apiKey
             };
             var data = {
                 "model": model,
